@@ -1,161 +1,11 @@
 {
 	"info": {
-		"_postman_id": "706da671-c57f-47cb-88a8-d0b3b6f33b9b",
+		"_postman_id": "029c7325-7296-4f65-80f3-16024284e895",
 		"name": "automationpractice",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23079122"
+		"_exporter_id": "12669134"
 	},
 	"item": [
-		{
-			"name": "Cart",
-			"item": [
-				{
-					"name": "MainPage",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}",
-							"host": [
-								"{{base_url}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetProduct",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}?id_product={{id_product}}&controller={{controller}}",
-							"host": [
-								"{{base_url}}"
-							],
-							"query": [
-								{
-									"key": "id_product",
-									"value": "{{id_product}}"
-								},
-								{
-									"key": "controller",
-									"value": "{{controller}}"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "AddProduct",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}?controller=cart&add=1&ajax=true&qty=3&id_product={{id_product}}&ipa=3&token=e817bb0705dd58da8db074c69f729fd8",
-							"host": [
-								"{{base_url}}"
-							],
-							"query": [
-								{
-									"key": "controller",
-									"value": "cart"
-								},
-								{
-									"key": "add",
-									"value": "1"
-								},
-								{
-									"key": "ajax",
-									"value": "true"
-								},
-								{
-									"key": "qty",
-									"value": "3"
-								},
-								{
-									"key": "id_product",
-									"value": "{{id_product}}"
-								},
-								{
-									"key": "ipa",
-									"value": "3"
-								},
-								{
-									"key": "token",
-									"value": "e817bb0705dd58da8db074c69f729fd8"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetProductsInCart",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}?controller=order&token=5badc416-c0d4-4cde-962f-b68f6d226eca",
-							"host": [
-								"{{base_url}}"
-							],
-							"query": [
-								{
-									"key": "controller",
-									"value": "order"
-								},
-								{
-									"key": "token",
-									"value": "5badc416-c0d4-4cde-962f-b68f6d226eca"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
 		{
 			"name": "APIS LIST FOR PRACTICE",
 			"item": [
@@ -178,15 +28,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://automationexercise.com/api/productsList",
-							"protocol": "https",
+							"raw": "{{base_url}}productsList",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"productsList"
+								"{{base_url}}productsList"
 							]
 						}
 					},
@@ -215,15 +59,9 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://automationexercise.com/api/productsList",
-							"protocol": "https",
+							"raw": "{{base_url}}productsList",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"productsList"
+								"{{base_url}}productsList"
 							]
 						}
 					},
@@ -248,15 +86,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://automationexercise.com/api/brandsList",
-							"protocol": "https",
+							"raw": "{{base_url}}brandsList",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"brandsList"
+								"{{base_url}}brandsList"
 							]
 						}
 					},
@@ -289,15 +121,9 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "https://automationexercise.com/api/brandsList",
-							"protocol": "https",
+							"raw": "{{base_url}}brandsList",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"brandsList"
+								"{{base_url}}brandsList"
 							]
 						}
 					},
@@ -332,15 +158,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/searchProduct",
-							"protocol": "https",
+							"raw": "{{base_url}}searchProduct",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"searchProduct"
+								"{{base_url}}searchProduct"
 							]
 						}
 					},
@@ -373,15 +193,9 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://automationexercise.com/api/searchProduct",
-							"protocol": "https",
+							"raw": "{{base_url}}searchProduct",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"searchProduct"
+								"{{base_url}}searchProduct"
 							]
 						}
 					},
@@ -510,15 +324,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/createAccount",
-							"protocol": "https",
+							"raw": "{{base_url}}createAccount",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"createAccount"
+								"{{base_url}}createAccount"
 							]
 						}
 					},
@@ -562,15 +370,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/verifyLogin",
-							"protocol": "https",
+							"raw": "{{base_url}}verifyLogin",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"verifyLogin"
+								"{{base_url}}verifyLogin"
 							]
 						}
 					},
@@ -615,15 +417,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/verifyLogin",
-							"protocol": "https",
+							"raw": "{{base_url}}verifyLogin",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"verifyLogin"
+								"{{base_url}}verifyLogin"
 							]
 						}
 					},
@@ -652,15 +448,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://automationexercise.com/api/verifyLogin",
-							"protocol": "https",
+							"raw": "{{base_url}}verifyLogin",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"verifyLogin"
+								"{{base_url}}verifyLogin"
 							]
 						}
 					},
@@ -708,15 +498,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/verifyLogin",
-							"protocol": "https",
+							"raw": "{{base_url}}verifyLogin",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"verifyLogin"
+								"{{base_url}}verifyLogin"
 							]
 						}
 					},
@@ -843,15 +627,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/updateAccount",
-							"protocol": "https",
+							"raw": "{{base_url}}updateAccount",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"updateAccount"
+								"{{base_url}}updateAccount"
 							]
 						}
 					},
@@ -903,15 +681,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/getUserDetailByEmail?email={{email}}",
-							"protocol": "https",
+							"raw": "{{base_url}}getUserDetailByEmail?email={{email}}",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"getUserDetailByEmail"
+								"{{base_url}}getUserDetailByEmail"
 							],
 							"query": [
 								{
@@ -961,21 +733,35 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/deleteAccount",
-							"protocol": "https",
+							"raw": "{{base_url}}deleteAccount",
 							"host": [
-								"automationexercise",
-								"com"
-							],
-							"path": [
-								"api",
-								"deleteAccount"
+								"{{base_url}}deleteAccount"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
