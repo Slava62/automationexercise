@@ -10,6 +10,35 @@ Feature: User account
     And  the response JSON has message "User created!"
   @ignored
   @positive
+  Scenario: POST To Verify Login with valid details
+    #Given the user has valid account details
+    When the user tries to login
+    Then the response code is 200
+    And  the response JSON has responseCode 200
+    And  the response JSON has message "User exists!"
+  @ignored
+  @negative
+  Scenario: POST To Verify Login without email parameter
+    When the user tries to login without email parameter
+    Then the response code is 200
+    And  the response JSON has responseCode 400
+    And  the response JSON has message "Bad request, email or password parameter is missing in POST request."
+  @ignored
+  @negative
+  Scenario: DELETE To Verify Login
+    When the user tries to send DELETE request
+    Then the response code is 200
+    And  the response JSON has responseCode 405
+    And  the response JSON has message "This request method is not supported."
+  @ignored
+  @negative
+  Scenario: POST To Verify Login with invalid details
+    When the user tries to login with invalid details
+    Then the response code is 200
+    And  the response JSON has responseCode 404
+    And  the response JSON has message "User not found!"
+  @ignored
+  @positive
   Scenario: PUT METHOD To Update User Account
     Given the user has an account data to update
     When the user tries to update an account
