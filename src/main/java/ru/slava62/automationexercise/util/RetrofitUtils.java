@@ -43,13 +43,25 @@ public class RetrofitUtils {
             return getRetrofit().create(BrandService.class);
         }
 
-    // public CategoryService getCategoryService() throws MalformedURLException{
-    //    return getRetrofit().create(CategoryService.class);
-    // }
+     public UserService getUserService() throws MalformedURLException{
+        return getRetrofit().create(UserService.class);
+     }
 
     // public ProductService getProductService() throws MalformedURLException{
     //     return getRetrofit().create(ProductService.class);
     // }
+
+    public Response<MessageJSON> createUser(User user, UserService service) throws IOException{
+        return service
+                .createUser(user.getName(), user.getEmail(), user.getPassword(),
+                        user.getTitle(), user.getBirthDay(), user.getBirthMonth(),
+                        user.getBirthYear(), user.getFirstName(), user.getLastName(),
+                        user.getCompany(), user.getAddress1(), user.getAddress2(),
+                        user.getCountry(), user.getZipcode(), user.getState(), user.getCity(),
+                        user.getMobile_number()
+                        )
+                .execute();
+    }
 
     public Response<Products> postProductSearch(String product, ProductService service) throws IOException {
         return service

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @With
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Usertype {
-@JsonProperty("usertype")
-private String usertype;
+    @JsonProperty("usertype")
+    private String usertype;
 }
-

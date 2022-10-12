@@ -1,9 +1,9 @@
 Feature: User account
   Operation with user account
-  @ignored
+#  @ignored
   @positive
   Scenario: POST To Create/Register User Account
-    Given the user has an account data
+#    Given the user has an account data
     When the user tries to create an account
     Then the response code is 200
     And  the response JSON has responseCode 201
