@@ -2,6 +2,7 @@ Feature: User account
   Operation with user account
 #  @ignored
   @positive
+  @use
   Scenario: POST To Create/Register User Account
 #    Given the user has an account data
     When the user tries to create an account
@@ -53,11 +54,11 @@ Feature: User account
     Then the response code is 200
     And  the response JSON has responseCode 200
     And  the response JSON has the account detail
-  @ignored
+#  @ignored
   @positive
+  @use
   Scenario: DELETE METHOD To Delete User Account
-    Given the user has an account email and password
-    When the user tries to delete an account
+    When the user with email and password tries to delete an account
     Then the response code is 200
     And  the response JSON has responseCode 200
     And  the response JSON has message "Account deleted!"

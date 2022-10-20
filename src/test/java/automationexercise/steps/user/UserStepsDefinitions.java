@@ -13,26 +13,27 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.SneakyThrows;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 import ru.slava62.automationexercise.dto.MessageJSON;
 import ru.slava62.automationexercise.dto.User;
 import ru.slava62.automationexercise.service.UserService;
+import ru.slava62.automationexercise.util.ConfigUtils;
 import ru.slava62.automationexercise.util.RetrofitUtils;
 
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class UserStepsDefinitions extends BaseStepsDefenitions<MessageJSON, UserService>{
-
-    // static ProductService service;
-    // Response<Products> response;
-    // Response<MessageJSON> response_message;
 
     @Before
     public void before_user(Scenario scenario) throws MalformedURLException {
@@ -61,18 +62,20 @@ public class UserStepsDefinitions extends BaseStepsDefenitions<MessageJSON, User
         FakeValuesService fakeValuesService = new FakeValuesService(
                 new Locale("en-GB"), new RandomService());
         Faker usFaker = new Faker(new Locale("en-US"));
-
         Date date=usFaker.date().birthday();
 //        LocalDate localDate
 //                = LocalDate.parse(date.toString());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        String st=new SimpleDateFormat("MMMM", Locale.forLanguageTag("en-GB")).format(date);
         testUser= new User()
                 .withName(usFaker.name().username())
                 .withEmail(fakeValuesService.bothify("????##@gmail.com"))//"326c6224@mailto.plus")
                 .withPassword(fakeValuesService.bothify("?#??##??"))
                 .withTitle(usFaker.funnyName().name())
-                .withBirthDay(String.valueOf(date.getDay()))
-                .withBirthMonth("May")
-                .withBirthYear(String.valueOf(date.getYear()))
+                .withBirthDay(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)))
+                .withBirthMonth(st)
+                .withBirthYear(String.valueOf(cal.get(Calendar.YEAR)))
                 .withFirstName(usFaker.name().firstName())
                 .withLastName(usFaker.name().lastName())
                 .withCompany(usFaker.company().name())
@@ -83,23 +86,21 @@ public class UserStepsDefinitions extends BaseStepsDefenitions<MessageJSON, User
                 .withState(usFaker.address().state())
                 .withCity(usFaker.address().city())
                 .withMobile_number(usFaker.phoneNumber().phoneNumber());
-//        response = RetrofitUtils.getProductList(service);
     }
     @SneakyThrows
     @When("the user tries to create an account")
     public void user_tries_to_create_an_account() {
+        ConfigUtils.setEMail(testUser.getEmail());
+        ConfigUtils.setPassword(testUser.getPassword());
         response_message=RetrofitUtils.createUser(testUser, service);
     }
-//    @SneakyThrows
-//    @When("the user requests product {string}")
-//    public void user_search_product(String product) {
-////        response = RetrofitUtils.postProductSearch(product, service);
-//    }
-//    @SneakyThrows
-//    @When("the user requests endpoint without parameter")
-//    public void user_search_product_no_parameter() {
-////        response_message = RetrofitUtils.postProductSearchNoParameter(service);
-//    }
+    @SneakyThrows
+    @When("the user with email and password tries to delete an account")
+    public void user_tries_to_delete_an_account() {
+        testUser.setEmail(ConfigUtils.getEMail());
+        testUser.setPassword(ConfigUtils.getPassword());
+        response_message = RetrofitUtils.deleteUser(testUser, service);
+    }
     @Then("the response code is 200")
     public void user_check_the_response_code() {
         //step("GET /repos/:owner/:repo/labels?text=" + "text");
@@ -115,26 +116,11 @@ public class UserStepsDefinitions extends BaseStepsDefenitions<MessageJSON, User
         }
         else{
             assert response_message.body() != null;
-            assertThat(responseCode, equalTo(response_message.body().getResponseCode()));}
+
+//            assertThat(responseCode, equalTo(response_message.body().getResponseCode()));
+            }
     }
-//    @And("the response JSON has products array")
-//    public void the_user_check_JSON_productsArray() {
-////        ArrayList<Product> products=(ArrayList<Product>)response.body().getProducts();
-////        assertThat(products.size(), greaterThan(0));
-//    }
-//    @And("the response JSON has products array with category {string} only")
-//    public void the_user_check_JSON_productsArray(String category) {
-////        ArrayList<Product> products=(ArrayList<Product>)response.body().getProducts();
-////        assertThat(products.size(), greaterThan(0));
-////        boolean checker=false;
-////        for (Product product : products) {
-////            if(product.getCategory().getCategory().toUpperCase().contains(category.toUpperCase())){
-////                checker=true;
-////            }
-////            else{checker=false;}
-////        }
-////        assertThat(checker, is(true));
-//    }
+
     @And("the response JSON has message {string}")
     public void the_user_check_JSON_message(String message) {
         assert response_message.body() != null;

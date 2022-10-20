@@ -98,6 +98,12 @@ public class RetrofitUtils {
                 .putBrandList()
                 .execute();
     }
+
+    public Response<MessageJSON> deleteUser(User testUser, UserService service) throws IOException {
+        return service
+                .deleteUserAccount(testUser.getEmail(),testUser.getPassword())
+                .execute();
+    }
     // public Response<Products> createProductResponse(Product product, ProductService service) throws IOException {
     //     return service
     //             .createProduct(product)//(int)productId) long productId

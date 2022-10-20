@@ -1,5 +1,6 @@
 package automationexercise.steps;
 
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 import ru.slava62.automationexercise.dto.*;
 import ru.slava62.automationexercise.service.ProductService;
@@ -22,9 +23,7 @@ public class BaseStepsDefenitions<T,S> {
     protected Response<T> response;
     protected Response<MessageJSON> response_message;
     protected S service;
-
     protected User testUser;
-    
     // protected void getService() throws MalformedURLException { 
     // if (service.getClass()==ProductService.class){
     // service = (S) RetrofitUtils.getProductService();}

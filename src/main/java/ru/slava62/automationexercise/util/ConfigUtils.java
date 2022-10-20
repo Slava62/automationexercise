@@ -25,4 +25,10 @@ public class ConfigUtils {
     public String getBaseUrl() {return prop.getProperty("url");}
     public String getStand() {return prop.getProperty("stand");}
 
+    public void setEMail(String eMail){prop.setProperty("email", eMail);}
+    public void setPassword(String password){prop.setProperty("password", password);}
+
+    public String getEMail(){return prop.getProperty("email");}
+    public String getPassword(){return prop.getProperty("password");}
+
 }
