@@ -53,6 +53,7 @@ public class UserStepsDefinitions extends BaseStepsDefenitions<MessageJSON, User
         response=null;
         response_message=null;
         testUser=null;
+        responseBody=null;
         EnvironmentInfo.setAllureEnvironment();
     }
 
@@ -101,6 +102,44 @@ public class UserStepsDefinitions extends BaseStepsDefenitions<MessageJSON, User
         testUser.setPassword(ConfigUtils.getPassword());
         response_message = RetrofitUtils.deleteUser(testUser, service);
     }
+    @SneakyThrows
+    @When("the user tries to login")
+    public void user_tries_to_login(){
+        testUser.setEmail(ConfigUtils.getEMail());
+        testUser.setPassword(ConfigUtils.getPassword());
+        response_message = RetrofitUtils.loginUser(testUser, service);
+    }
+    @SneakyThrows
+    @When("the user tries to login without email parameter")
+    public void user_has_no_email_to_login(){
+        testUser.setPassword(ConfigUtils.getPassword());
+        response_message=RetrofitUtils.loginUser(testUser.getPassword(),service);
+    }
+    @SneakyThrows
+    @When("the user tries to use DELETE method")
+    public void user_sends_delete_request(){
+        response_message=RetrofitUtils.deleteMethod(service);
+    }
+    @SneakyThrows
+    @When("the user tries to login with invalid details")
+    public void user_tries_to_use_ivnalid_details(){
+        testUser.setEmail("invalid_email");
+        testUser.setPassword("invalid_password");
+        response_message=RetrofitUtils.loginUser(testUser,service);
+    }
+    @SneakyThrows
+    @When("the user tries to update an account")
+    public void user_tries_to_update_account(){
+        testUser.setEmail(ConfigUtils.getEMail());
+        testUser.setPassword(ConfigUtils.getPassword());
+        response_message=RetrofitUtils.updateUser(testUser,service);
+    }
+    @SneakyThrows
+    @When("the user tries to get the account detail by email")
+    public void user_gets_the_account_detail(){
+        testUser.setEmail(ConfigUtils.getEMail());
+        responseBody=RetrofitUtils.getUserDetails(testUser,service);
+    }
     @Then("the response code is 200")
     public void user_check_the_response_code() {
         //step("GET /repos/:owner/:repo/labels?text=" + "text");
@@ -125,6 +164,13 @@ public class UserStepsDefinitions extends BaseStepsDefenitions<MessageJSON, User
     public void the_user_check_JSON_message(String message) {
         assert response_message.body() != null;
         assertThat(message, equalTo(response_message.body().getMessage()));
+    }
+    @And("the response body has responseCode {int}")
+    public void the_user_check_responseCode(int responseCode) {
+        if (!(responseBody==null)){
+//        assert response_message.body() != null;
+        assertThat(responseCode, equalTo(responseBody.code()));
+    }
     }
 
 }

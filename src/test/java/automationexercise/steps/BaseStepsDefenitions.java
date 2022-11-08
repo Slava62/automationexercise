@@ -24,6 +24,7 @@ public class BaseStepsDefenitions<T,S> {
     protected Response<MessageJSON> response_message;
     protected S service;
     protected User testUser;
+    protected Response<ResponseBody> responseBody;
     // protected void getService() throws MalformedURLException { 
     // if (service.getClass()==ProductService.class){
     // service = (S) RetrofitUtils.getProductService();}

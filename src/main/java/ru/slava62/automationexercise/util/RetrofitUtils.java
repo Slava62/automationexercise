@@ -104,6 +104,41 @@ public class RetrofitUtils {
                 .deleteUserAccount(testUser.getEmail(),testUser.getPassword())
                 .execute();
     }
+
+    public static Response<MessageJSON> loginUser(User testUser, UserService service) throws IOException{
+        return service
+                .loginUser(testUser.getEmail(),testUser.getPassword())
+                .execute();
+    }
+    public static Response<MessageJSON> loginUser(String password, UserService service) throws IOException{
+        return service
+                .loginUser(password)
+                .execute();
+    }
+
+    public static Response<MessageJSON> deleteMethod(UserService service) throws IOException {
+        return service
+                .deleteMethod()
+                .execute();
+    }
+
+    public static Response<MessageJSON> updateUser(User user, UserService service) throws IOException{
+        return service
+                .updateUser(user.getName(), user.getEmail(), user.getPassword(),
+                        user.getTitle(), user.getBirthDay(), user.getBirthMonth(),
+                        user.getBirthYear(), user.getFirstName(), user.getLastName(),
+                        user.getCompany(), user.getAddress1(), user.getAddress2(),
+                        user.getCountry(), user.getZipcode(), user.getState(), user.getCity(),
+                        user.getMobile_number()
+                )
+                .execute();
+    }
+
+    public static Response<ResponseBody> getUserDetails(User testUser, UserService service) throws IOException{
+        return service
+                .getDetail(testUser.getEmail())
+                .execute();
+    }
     // public Response<Products> createProductResponse(Product product, ProductService service) throws IOException {
     //     return service
     //             .createProduct(product)//(int)productId) long productId

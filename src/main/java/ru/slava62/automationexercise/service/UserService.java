@@ -29,6 +29,38 @@ public interface UserService {
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "deleteAccount", hasBody = true)
     Call<MessageJSON> deleteUserAccount(@Field("email") String email,
-                                         @Field("password") String password);
+                                        @Field("password") String password);
+    @FormUrlEncoded
+    @HTTP(method = "POST", path = "verifyLogin", hasBody = true)
+    Call<MessageJSON> loginUser(@Field("email") String email,
+                                @Field("password") String password);
+    @FormUrlEncoded
+    @HTTP(method = "POST", path = "verifyLogin", hasBody = true)
+    Call<MessageJSON> loginUser(@Field("password") String password);
+
+    @DELETE("verifyLogin")
+    Call<MessageJSON> deleteMethod();
+
+    @FormUrlEncoded
+    @HTTP(method = "PUT", path = "updateAccount", hasBody = true)
+    Call<MessageJSON> updateUser(@Field("name")  String name,
+                                 @Field("email")  String email,
+                                 @Field("password")  String password,
+                                 @Field("title ")  String title ,
+                                 @Field("birth_date")  String birthDate,
+                                 @Field("birth_month")  String birthMonth,
+                                 @Field("birth_year")  String birthYear,
+                                 @Field("firstname")  String firstname,
+                                 @Field("lastname")  String lastname,
+                                 @Field("company")  String company,
+                                 @Field("address1")  String address1,
+                                 @Field("address2")  String address2,
+                                 @Field("country")  String country,
+                                 @Field("zipcode")  String zipcode,
+                                 @Field("state")  String state,
+                                 @Field("city")  String city,
+                                 @Field("mobile_number")  String mobileNumber
+    );
+    @GET("getUserDetailByEmail")
+    Call<ResponseBody> getDetail(@Query("email") String email);
 }
-//https://automationexercise.com/api/deleteAccount/?email=56e2f51b@mailto.plus&password=password
