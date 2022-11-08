@@ -3,6 +3,7 @@ Feature: User account
 #  @ignored
   @positive
   @use
+  @one
   Scenario: POST To Create/Register User Account
 #    Given the user has an account data
     When the user tries to create an account
@@ -53,6 +54,7 @@ Feature: User account
 #  @ignored
   @positive
   @use
+  @one
   Scenario: GET user account detail by email
     When the user tries to get the account detail by email
 #    Then the response code is 200
@@ -61,6 +63,7 @@ Feature: User account
 #  @ignored
   @positive
   @use
+  @one
   Scenario: DELETE METHOD To Delete User Account
     When the user with email and password tries to delete an account
     Then the response code is 200

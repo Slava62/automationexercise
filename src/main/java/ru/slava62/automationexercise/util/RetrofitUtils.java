@@ -47,10 +47,6 @@ public class RetrofitUtils {
         return getRetrofit().create(UserService.class);
      }
 
-    // public ProductService getProductService() throws MalformedURLException{
-    //     return getRetrofit().create(ProductService.class);
-    // }
-
     public Response<MessageJSON> createUser(User user, UserService service) throws IOException{
         return service
                 .createUser(user.getName(), user.getEmail(), user.getPassword(),
@@ -139,51 +135,4 @@ public class RetrofitUtils {
                 .getDetail(testUser.getEmail())
                 .execute();
     }
-    // public Response<Products> createProductResponse(Product product, ProductService service) throws IOException {
-    //     return service
-    //             .createProduct(product)//(int)productId) long productId
-    //             .execute();
-    // }
-
-    // public Response<Product> updateProductResponse(Product product, ProductService service) throws IOException {
-    //     return service
-    //             .updateProduct(product)//(int)productId) long productId
-    //             .execute();
-    // }
-
-    // public Response<ResponseBody> deleteProductResponse(Long productId, ProductService service) throws IOException {
-    //     return service
-    //             .deleteProduct(productId)
-    //             .execute();
-    // }
-
-    // public Response<Category> getCategoryResponse(Integer categoryId, CategoryService service) throws IOException {
-    //   return service
-    //             .getCategory(categoryId)
-    //             .execute();
-    // }
-
-    // public Response<Category> updateCategoryResponse(Integer categoryId, CategoryService service) throws IOException {
-    //     return service
-    //             .updateCategory(categoryId)
-    //             .execute();
-    // }
-
-    // public Response<Category> deleteCategoryResponse(Integer categoryId, CategoryService service) throws IOException {
-    //     return service
-    //             .deleteCategory(categoryId)
-    //             .execute();
-    // }
-
-    // public Response<Category> createCategoryResponse(Category category, CategoryService service) throws IOException{
-    //     return service
-    //             .createCategory(category)
-    //             .execute();
-    // }
-
-    // public static Response<ResponseBody> getAllProductsResponse(ProductService service) throws IOException {
-    //     return service
-    //             .getAllProducts()
-    //             .execute();
-    // }
 }

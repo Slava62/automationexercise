@@ -2,6 +2,7 @@ package automationexercise.steps.user;
 
 import automationexercise.allure.env.EnvironmentInfo;
 import automationexercise.steps.BaseStepsDefenitions;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
@@ -14,6 +15,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.SneakyThrows;
 import okhttp3.ResponseBody;
+import org.json.JSONObject;
 import retrofit2.Response;
 import ru.slava62.automationexercise.dto.MessageJSON;
 import ru.slava62.automationexercise.dto.User;
@@ -21,6 +23,7 @@ import ru.slava62.automationexercise.service.UserService;
 import ru.slava62.automationexercise.util.ConfigUtils;
 import ru.slava62.automationexercise.util.RetrofitUtils;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -166,10 +169,16 @@ public class UserStepsDefinitions extends BaseStepsDefenitions<MessageJSON, User
         assertThat(message, equalTo(response_message.body().getMessage()));
     }
     @And("the response body has responseCode {int}")
-    public void the_user_check_responseCode(int responseCode) {
+    public void the_user_check_responseCode(int responseCode) throws IOException {
         if (!(responseBody==null)){
 //        assert response_message.body() != null;
-        assertThat(responseCode, equalTo(responseBody.code()));
+            String result=responseBody.body().string();
+            JSONObject myObject = new JSONObject(result);
+            System.out.println(myObject.get("user").toString());
+            ObjectMapper mapper = new ObjectMapper();
+            User user=mapper.readValue( myObject.get("user").toString(),User.class);
+            assertThat(responseCode, equalTo((int)myObject.get("responseCode")));
+            assertThat(ConfigUtils.getEMail(), equalTo(user.getEmail()));
     }
     }
 

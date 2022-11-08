@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 public class PrettyLogger implements HttpLoggingInterceptor.Logger {
     ObjectMapper mapper = new ObjectMapper();
+
     @Override
     public void log(String message) {
         // String trimmedMessage = message.trim();
