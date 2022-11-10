@@ -11,5 +11,5 @@ import org.junit.runner.RunWith;
 plugin = { "pretty", "io.qameta.allure.cucumber6jvm.AllureCucumber6Jvm"},//"html:target/cucumber-reports.html" },
 monochrome = false, 
 glue="automationexercise.steps.user",
-tags ="not @ignored and @one")// and @product and @message
+tags ="not @ignored")// and @product and @message and @one
 public class AcceptanceTestSuiteUser { }
