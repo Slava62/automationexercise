@@ -6,12 +6,16 @@ import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 
 import okhttp3.ResponseBody;
+import org.json.JSONObject;
 import retrofit2.Response;
 import ru.slava62.automationexercise.dto.MessageJSON;
 import ru.slava62.automationexercise.dto.User;
+import ru.slava62.automationexercise.service.BrandService;
+import ru.slava62.automationexercise.service.ProductService;
 import ru.slava62.automationexercise.service.UserService;
 import ru.slava62.automationexercise.util.RetrofitUtils;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,39 +24,33 @@ import java.util.Locale;
 
 public class TestContext {
 
-    private Response<MessageJSON> response;
+    private Response<ResponseBody> response;
 
-    public Response<ResponseBody> getResponseBody() {
-        return responseBody;
-    }
-
-    public void setResponseBody(Response<ResponseBody> responseBody) {
-        this.responseBody = responseBody;
-    }
-
-    private Response<ResponseBody> responseBody;
-//    protected Response<MessageJSON> response_message;
-    private UserService service;
+    private JSONObject myObject;
     private User testUser;
 
     public TestContext() throws MalformedURLException {
         testUser= create_set_account_data();
-        service = RetrofitUtils.getUserService();
-        response=null;
-        responseBody=null;
     }
 
-    public Response<MessageJSON> getResponse() {
+    public Response getResponse() {
         return response;
     }
 
-    public void setResponse(Response<MessageJSON> response) {
+    public void setResponse(Response response) throws IOException {
         this.response = response;
+        String result=this.response.body().string();
+        myObject=new JSONObject(result);
     }
-    public UserService getService() {
-        return service;
+    public UserService getUserService() throws MalformedURLException {
+        return RetrofitUtils.getUserService();
     }
-
+    public ProductService getProductService() throws MalformedURLException {
+        return RetrofitUtils.getProductService();
+    }
+    public BrandService getBrandService() throws MalformedURLException {
+        return RetrofitUtils.getBrandService();
+    }
     public User getTestUser() {
         return testUser;
     }
@@ -82,5 +80,8 @@ public class TestContext {
                 .withState(usFaker.address().state())
                 .withCity(usFaker.address().city())
                 .withMobile_number(usFaker.phoneNumber().phoneNumber());
+    }
+    public JSONObject getJSONObject()  {
+        return myObject;
     }
 }

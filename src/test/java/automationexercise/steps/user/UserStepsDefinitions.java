@@ -37,8 +37,7 @@ import java.util.logging.Logger;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-//extends BaseStepsDefenitions<MessageJSON, UserService>
-//@NoArgsConstructor
+
 public class UserStepsDefinitions {
     @Before
     public void before_user(Scenario scenario) throws MalformedURLException {
@@ -58,11 +57,10 @@ public class UserStepsDefinitions {
     User testUser;
     UserService service;
 
-    public UserStepsDefinitions(TestContext testContext) {
+    public UserStepsDefinitions(TestContext testContext) throws MalformedURLException {
          this.context=testContext;
-        service=testContext.getService();
+        service=testContext.getUserService();
         testUser=testContext.getTestUser();
-//        response=testContext.getResponse();
     }
 
     @SneakyThrows
@@ -71,7 +69,7 @@ public class UserStepsDefinitions {
         ConfigUtils.setEMail(testUser.getEmail());
         ConfigUtils.setPassword(testUser.getPassword());
         context.setResponse(RetrofitUtils.createUser(testUser, service));
-        System.out.println("Creating - " + testUser.getEmail());
+//        System.out.println("Creating - " + testUser.getEmail());
     }
     @SneakyThrows
     @When("the user with email and password tries to delete an account")
@@ -79,7 +77,7 @@ public class UserStepsDefinitions {
         testUser.setEmail(ConfigUtils.getEMail());
         testUser.setPassword(ConfigUtils.getPassword());
         context.setResponse(RetrofitUtils.deleteUser(testUser, service));
-        System.out.println("Deleting - " + testUser.getEmail());
+//        System.out.println("Deleting - " + testUser.getEmail());
     }
     @SneakyThrows
     @When("the user tries to login")
@@ -97,7 +95,6 @@ public class UserStepsDefinitions {
     @SneakyThrows
     @When("the user tries to use DELETE method")
     public void user_sends_delete_request(){
-
         context.setResponse(RetrofitUtils.deleteMethod(service));
     }
     @SneakyThrows
@@ -118,27 +115,30 @@ public class UserStepsDefinitions {
     @When("the user tries to get the account detail by email")
     public void user_gets_the_account_detail(){
         testUser.setEmail(ConfigUtils.getEMail());
-        context.setResponseBody(RetrofitUtils.getUserDetails(testUser,service));
+        context.setResponse(RetrofitUtils.getUserDetails(testUser,service));
     }
     @Then("the response code is 200")
     public void user_check_the_response_code() {
         assertThat(context.getResponse().isSuccessful(), equalTo(true));//}
         }
     @And("the response JSON has responseCode {int}")
-    public void user_check_JSON_responseCode(int responseCode) {
-         assertThat(responseCode, equalTo(context.getResponse().body().getResponseCode()));
+    public void user_check_JSON_responseCode(int responseCode) throws IOException {
+        JSONObject myObject = context.getJSONObject();
+        assertThat(responseCode, equalTo((int)myObject.get("responseCode")));
     }
 
     @And("the response JSON has message {string}")
-    public void the_user_check_JSON_message(String message) {
-        assertThat(message, equalTo(context.getResponse().body().getMessage()));
+    public void the_user_check_JSON_message(String message) throws IOException {
+        JSONObject myObject = context.getJSONObject();
+        String s=myObject.get("message").toString();
+        System.out.println(s);
+        assertThat(message, equalTo(myObject.get("message")));
     }
     @And("the response body has responseCode {int}")
     public void the_user_check_responseCode(int responseCode) throws IOException {
-
-            String result=context.getResponseBody().body().string();
-            JSONObject myObject = new JSONObject(result);
-            System.out.println(myObject.get("user").toString());
+            Response<ResponseBody> response=context.getResponse();
+            String result=response.body().string();
+            JSONObject myObject = context.getJSONObject();
             ObjectMapper mapper = new ObjectMapper();
             User user=mapper.readValue( myObject.get("user").toString(),User.class);
             assertThat(responseCode, equalTo((int)myObject.get("responseCode")));

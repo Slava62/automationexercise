@@ -8,7 +8,7 @@ import ru.slava62.automationexercise.dto.MessageJSON;
 public interface UserService {
     @FormUrlEncoded
     @POST("createAccount")
-    Call<MessageJSON> createUser(@Field("name")  String name,
+    Call<ResponseBody> createUser(@Field("name")  String name,
                                  @Field("email")  String email,
                                  @Field("password")  String password,
                                  @Field("title ")  String title ,
@@ -28,22 +28,22 @@ public interface UserService {
                                  );
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "deleteAccount", hasBody = true)
-    Call<MessageJSON> deleteUserAccount(@Field("email") String email,
+    Call<ResponseBody> deleteUserAccount(@Field("email") String email,
                                         @Field("password") String password);
     @FormUrlEncoded
     @HTTP(method = "POST", path = "verifyLogin", hasBody = true)
-    Call<MessageJSON> loginUser(@Field("email") String email,
+    Call<ResponseBody> loginUser(@Field("email") String email,
                                 @Field("password") String password);
     @FormUrlEncoded
     @HTTP(method = "POST", path = "verifyLogin", hasBody = true)
-    Call<MessageJSON> loginUser(@Field("password") String password);
+    Call<ResponseBody> loginUser(@Field("password") String password);
 
     @DELETE("verifyLogin")
-    Call<MessageJSON> deleteMethod();
+    Call<ResponseBody> deleteMethod();
 
     @FormUrlEncoded
     @HTTP(method = "PUT", path = "updateAccount", hasBody = true)
-    Call<MessageJSON> updateUser(@Field("name")  String name,
+    Call<ResponseBody> updateUser(@Field("name")  String name,
                                  @Field("email")  String email,
                                  @Field("password")  String password,
                                  @Field("title ")  String title ,

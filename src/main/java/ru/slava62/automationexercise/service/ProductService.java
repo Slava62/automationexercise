@@ -1,6 +1,7 @@
 package ru.slava62.automationexercise.service;
 
 // import okhttp3.ResponseBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 import ru.slava62.automationexercise.dto.*;
@@ -9,14 +10,14 @@ public interface ProductService {
     
     @FormUrlEncoded
     @POST("searchProduct")
-    Call<Products> searchProduct(@Field("search_product") String product);
+    Call<ResponseBody> searchProduct(@Field("search_product") String product);
 
     @POST("searchProduct")
-    Call<MessageJSON> searchProduct();
+    Call<ResponseBody> searchProduct();
 
     @GET("productsList")
-    Call<Products> getProductList();
+    Call<ResponseBody> getProductList();
 
     @POST("productsList")
-    Call<MessageJSON> postProductList();
+    Call<ResponseBody> postProductList();
 }

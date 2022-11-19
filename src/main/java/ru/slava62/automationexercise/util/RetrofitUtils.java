@@ -47,7 +47,7 @@ public class RetrofitUtils {
         return getRetrofit().create(UserService.class);
      }
 
-    public Response<MessageJSON> createUser(User user, UserService service) throws IOException{
+    public Response<ResponseBody> createUser(User user, UserService service) throws IOException{
         return service
                 .createUser(user.getName(), user.getEmail(), user.getPassword(),
                         user.getTitle(), user.getBirthDay(), user.getBirthMonth(),
@@ -59,25 +59,25 @@ public class RetrofitUtils {
                 .execute();
     }
 
-    public Response<Products> postProductSearch(String product, ProductService service) throws IOException {
+    public Response<ResponseBody> postProductSearch(String product, ProductService service) throws IOException {
         return service
                 .searchProduct(product)
                 .execute();
     }
 
-    public Response<MessageJSON> postProductSearchNoParameter(ProductService service) throws IOException {
+    public Response<ResponseBody> postProductSearchNoParameter(ProductService service) throws IOException {
             return service
                     .searchProduct()
                     .execute();
     }
 
-    public Response<Products> getProductList(ProductService service) throws IOException {
+    public Response<ResponseBody> getProductList(ProductService service) throws IOException {
         return service
                 .getProductList()
                 .execute();
     }
 
-    public Response<MessageJSON> postProductList(ProductService service) throws IOException {
+    public Response<ResponseBody> postProductList(ProductService service) throws IOException {
         return service
                 .postProductList()
                 .execute();
@@ -95,30 +95,30 @@ public class RetrofitUtils {
                 .execute();
     }
 
-    public Response<MessageJSON> deleteUser(User testUser, UserService service) throws IOException {
+    public Response<ResponseBody> deleteUser(User testUser, UserService service) throws IOException {
         return service
                 .deleteUserAccount(testUser.getEmail(),testUser.getPassword())
                 .execute();
     }
 
-    public static Response<MessageJSON> loginUser(User testUser, UserService service) throws IOException{
+    public static Response<ResponseBody> loginUser(User testUser, UserService service) throws IOException{
         return service
                 .loginUser(testUser.getEmail(),testUser.getPassword())
                 .execute();
     }
-    public static Response<MessageJSON> loginUser(String password, UserService service) throws IOException{
+    public static Response<ResponseBody> loginUser(String password, UserService service) throws IOException{
         return service
                 .loginUser(password)
                 .execute();
     }
 
-    public static Response<MessageJSON> deleteMethod(UserService service) throws IOException {
+    public static Response<ResponseBody> deleteMethod(UserService service) throws IOException {
         return service
                 .deleteMethod()
                 .execute();
     }
 
-    public static Response<MessageJSON> updateUser(User user, UserService service) throws IOException{
+    public static Response<ResponseBody> updateUser(User user, UserService service) throws IOException{
         return service
                 .updateUser(user.getName(), user.getEmail(), user.getPassword(),
                         user.getTitle(), user.getBirthDay(), user.getBirthMonth(),
