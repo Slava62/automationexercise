@@ -28,6 +28,18 @@
 
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>info.cukes</groupId>-->
+<!--            <artifactId>cucumber-picocontainer</artifactId>-->
+<!--            <version>1.2.5</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.picocontainer</groupId>-->
+<!--            <artifactId>picocontainer</artifactId>-->
+<!--            <version>2.14.3</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
@@ -52,6 +64,12 @@
                 <version>${cucumber.version}</version>
                 <scope>test</scope>
             </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>6.6.1</version>
+            <scope>test</scope>
+        </dependency>
             <!-- Retrofit 2 -->
             <dependency>
                 <groupId>com.squareup.retrofit2</groupId>
