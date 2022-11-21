@@ -83,13 +83,13 @@ public class RetrofitUtils {
                 .execute();
     }
 
-    public Response<Brands> getBrandList(BrandService service) throws IOException {
+    public Response<ResponseBody> getBrandList(BrandService service) throws IOException {
         return service
                 .getBrandList()
                 .execute();
     }
 
-    public Response<MessageJSON> putBrandList(BrandService service) throws IOException {
+    public Response<ResponseBody> putBrandList(BrandService service) throws IOException {
         return service
                 .putBrandList()
                 .execute();

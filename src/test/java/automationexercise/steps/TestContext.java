@@ -1,14 +1,18 @@
-package cucumber;
+package automationexercise.steps;
 
 
+import automationexercise.allure.env.EnvironmentInfo;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
-
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import okhttp3.ResponseBody;
 import org.json.JSONObject;
 import retrofit2.Response;
-import ru.slava62.automationexercise.dto.MessageJSON;
 import ru.slava62.automationexercise.dto.User;
 import ru.slava62.automationexercise.service.BrandService;
 import ru.slava62.automationexercise.service.ProductService;
@@ -22,8 +26,24 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 public class TestContext {
 
+    @Before(order=0)
+    public void beforeScenario(Scenario scenario) throws MalformedURLException {
+        System.out.println("------------------------------");
+        System.out.println("Starting - " + scenario.getName());
+        System.out.println("------------------------------");
+    }
+    @After(order=0)
+    public void afterScenario(Scenario scenario) {
+        System.out.println("------------------------------");
+        System.out.println("Ending - scenario");
+        System.out.println("------------------------------");
+        EnvironmentInfo.setAllureEnvironment();
+    }
     private Response<ResponseBody> response;
 
     private JSONObject myObject;
@@ -83,5 +103,21 @@ public class TestContext {
     }
     public JSONObject getJSONObject()  {
         return myObject;
+    }
+
+    @Then("the response code is 200")
+    public void user_check_the_response_code() {
+        assertThat(this.getResponse().isSuccessful(), equalTo(true));
+    }
+    @And("the response JSON has responseCode {int}")
+    public void user_check_JSON_responseCode(int responseCode) {
+        JSONObject myObject = this.getJSONObject();
+        assertThat(responseCode, equalTo((int)myObject.get("responseCode")));
+    }
+    @And("the response JSON has message {string}")
+    public void the_user_check_JSON_message(String message) {
+        JSONObject myObject = this.getJSONObject();
+        String s=myObject.get("message").toString();
+        assertThat(message, equalTo(myObject.get("message")));
     }
 }

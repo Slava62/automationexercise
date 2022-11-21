@@ -11,7 +11,7 @@ public class EnvironmentInfo {
   public static void setAllureEnvironment() {
       allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder()
-                        .put("URL", ConfigUtils.getBaseUrl())
+                        .put("URL", "https://automationexercise.com/api_list") //ConfigUtils.getBaseUrl()
                         .put("Stand", ConfigUtils.getStand())
                         .build());
 
